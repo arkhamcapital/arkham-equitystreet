@@ -18,9 +18,28 @@ export function AppHeader() {
           </span>
         </div>
       </div>
-      <span className="hidden text-[10px] tracking-[2px] text-[#333] sm:block">
-        CONFIDENTIAL &middot; INTERNAL USE ONLY
-      </span>
+      <div className="hidden items-center gap-6 sm:flex">
+        <span className="text-[10px] tracking-[2px] text-[#333]">
+          CONFIDENTIAL &middot; INTERNAL USE ONLY
+        </span>
+        <a
+          href="https://arkhamsystems.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[10px] tracking-[2px] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Arkham Systems
+        </a>
+        <a
+          href="https://x.com/rarascode"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[10px] tracking-[2px] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          rarascode
+        </a>
+
+      </div>
     </header>
   )
 }

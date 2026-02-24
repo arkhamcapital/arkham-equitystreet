@@ -8,7 +8,7 @@ import { AnalysisTabs } from "@/components/cim/analysis-tabs"
 import { ReportForPdf } from "@/components/cim/report-for-pdf"
 import { DecisionPanel } from "@/components/cim/decision-panel"
 import { SidebarInfo } from "@/components/cim/sidebar-info"
-import { RecentDeals } from "@/components/cim/recent-deals"
+// import { RecentDeals } from "@/components/cim/recent-deals"
 import type { AnalysisResult } from "@/lib/mock-analysis"
 
 type AppState = "upload" | "processing" | "analysis" | "error"
@@ -102,7 +102,7 @@ function UploadView({
         </div>
 
         <div className="mt-10">
-          <RecentDeals />
+            {/* <RecentDeals /> */}
         </div>
       </div>
     </main>

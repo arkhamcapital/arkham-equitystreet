@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Libre_Baskerville, DM_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from "next/script";
+
 import './globals.css'
 
 const libreBaskerville = Libre_Baskerville({
@@ -57,6 +59,18 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
+        <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-52XGVDDEM5"
+        strategy="afterInteractive"
+      />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-52XGVDDEM5');
+          `}
+        </Script>
       </body>
     </html>
   )
