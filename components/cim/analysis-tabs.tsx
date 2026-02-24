@@ -39,7 +39,7 @@ export function AnalysisTabs({ data }: AnalysisTabsProps) {
             className={`flex items-center gap-2 border-b-2 px-5 py-3 text-[10px] tracking-[1.5px] transition-all ${
               activeTab === tab.id
                 ? "border-primary text-primary"
-                : "border-transparent text-[#444] hover:text-[#666]"
+                : "border-transparent text-foreground hover:text-foreground"
             }`}
           >
             {tab.label}
@@ -48,7 +48,7 @@ export function AnalysisTabs({ data }: AnalysisTabsProps) {
                 className={`rounded-sm px-1.5 py-px text-[9px] ${
                   activeTab === tab.id
                     ? "bg-primary/10 text-primary"
-                    : "bg-secondary text-[#444]"
+                    : "bg-secondary text-foreground"
                 }`}
               >
                 {tabCounts[tab.id]}
@@ -85,7 +85,7 @@ function MemoTab({ data }: { data: AnalysisResult }) {
             {data.memo.growthDrivers.map((driver, i) => (
               <li key={i} className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
-                <span className="text-[13.5px] font-sans leading-7 text-[#ccc]">
+                <span className="text-[13.5px] font-sans leading-7 text-foreground">
                   {driver}
                 </span>
               </li>
@@ -101,7 +101,7 @@ function MemoTab({ data }: { data: AnalysisResult }) {
               {data.memo.keyConcerns.map((concern, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
-                  <span className="text-[13.5px] font-sans leading-7 text-[#ccc]">
+                  <span className="text-[13.5px] font-sans leading-7 text-foreground">
                     {concern}
                   </span>
                 </li>
@@ -125,7 +125,7 @@ function RisksTab({ data }: { data: AnalysisResult }) {
   return (
     <ScrollArea className="h-[calc(100vh-400px)]">
       <div className="flex flex-col gap-2 pr-4">
-        <p className="mb-4 text-[12px] font-sans italic leading-6 text-[#444]">
+        <p className="mb-4 text-[12px] font-sans italic leading-6 text-foreground">
           Flags ordered by severity. Click any flag to expand the full analysis.
         </p>
         {data.risks.map((risk, i) => (
@@ -180,12 +180,12 @@ function RiskFlag({
         <span className={`text-[10px] font-medium tracking-[1.5px] ${s.text}`}>
           {s.label}
         </span>
-        <span className="text-[11px] text-[#888] mr-auto">{risk.title}</span>
-        <span className="text-[12px] text-[#555]">{open ? "\u25B2" : "\u25BC"}</span>
+        <span className="text-[11px] text-foreground mr-auto">{risk.title}</span>
+        <span className="text-[12px] text-foreground">{open ? "\u25B2" : "\u25BC"}</span>
       </div>
 
       {/* Description */}
-      <p className="mt-2 text-[13px] font-sans leading-6 text-[#ddd]">
+      <p className="mt-2 text-[13px] font-sans leading-6 text-foreground">
         {risk.description}
       </p>
 
@@ -195,7 +195,7 @@ function RiskFlag({
           <span className="text-[10px] tracking-[1.5px] text-muted-foreground">
             MITIGATION
           </span>
-          <p className="mt-1 text-[12.5px] font-sans leading-7 text-[#aaa]">
+          <p className="mt-1 text-[12.5px] font-sans leading-7 text-foreground">
             {risk.mitigation}
           </p>
         </div>
@@ -248,7 +248,7 @@ function FinancialsTab({ data }: { data: AnalysisResult }) {
                       className={`px-4 py-2.5 text-right text-[13px] ${
                         row.isHighlight
                           ? "font-bold text-foreground"
-                          : "text-[#aaa]"
+                          : "text-foreground"
                       }`}
                     >
                       {val}
@@ -273,7 +273,7 @@ function FinancialsTab({ data }: { data: AnalysisResult }) {
               <span className="text-2xl font-bold text-foreground">
                 {insight.value}
               </span>
-              <span className="text-[12px] font-sans leading-5 text-[#666]">
+              <span className="text-[12px] font-sans leading-5 text-foreground">
                 {insight.note}
               </span>
             </div>
@@ -296,7 +296,7 @@ function ThesisTab({ data }: { data: AnalysisResult }) {
             {data.thesis.bullCase.map((point, i) => (
               <div key={i} className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
-                <span className="text-[13.5px] font-sans leading-7 text-[#ccc]">
+                <span className="text-[13.5px] font-sans leading-7 text-foreground">
                   {point}
                 </span>
               </div>
@@ -312,7 +312,7 @@ function ThesisTab({ data }: { data: AnalysisResult }) {
             {data.thesis.bearCase.map((point, i) => (
               <div key={i} className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
-                <span className="text-[13.5px] font-sans leading-7 text-[#ccc]">
+                <span className="text-[13.5px] font-sans leading-7 text-foreground">
                   {point}
                 </span>
               </div>
@@ -325,7 +325,7 @@ function ThesisTab({ data }: { data: AnalysisResult }) {
         <div className="mb-6">
           <SectionLabel>Base Case</SectionLabel>
           <div className="rounded-md border border-border bg-card p-5">
-            <p className="text-[13.5px] font-sans leading-8 text-[#ccc]">
+            <p className="text-[13.5px] font-sans leading-8 text-foreground">
               {data.thesis.baseCase}
             </p>
           </div>
@@ -359,13 +359,13 @@ function ThesisTab({ data }: { data: AnalysisResult }) {
                     <td className="px-4 py-2.5 text-[13px] font-sans text-foreground">
                       {comp.name}
                     </td>
-                    <td className="px-4 py-2.5 text-right text-[13px] text-[#aaa]">
+                    <td className="px-4 py-2.5 text-right text-[13px] text-foreground">
                       {comp.evEbitda}
                     </td>
-                    <td className="px-4 py-2.5 text-right text-[13px] text-[#aaa]">
+                    <td className="px-4 py-2.5 text-right text-[13px] text-foreground">
                       {comp.evRevenue}
                     </td>
-                    <td className="px-4 py-2.5 text-right text-[13px] text-[#555]">
+                    <td className="px-4 py-2.5 text-right text-[13px] text-foreground">
                       {comp.year}
                     </td>
                   </tr>
@@ -390,7 +390,7 @@ function MemoSection({
   return (
     <div className="mb-6">
       <SectionLabel>{title}</SectionLabel>
-      <p className="text-[13.5px] font-sans leading-8 text-[#ccc]">{content}</p>
+      <p className="text-[13.5px] font-sans leading-8 text-foreground">{content}</p>
     </div>
   )
 }

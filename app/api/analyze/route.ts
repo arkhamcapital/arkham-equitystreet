@@ -85,7 +85,10 @@ Critical rules:
 - cimPages must be a number
 - If a financial figure is not in the CIM, use "N/D"
 - Never fabricate financial figures
-- Be specific — reference actual company details from the document`
+- Be specific — reference actual company details from the document
+- FINANCIALS: Always prioritize forecast/projected years over historical. If the CIM contains both historical and projected financials, use the projected years for the financials table
+- FINANCIALS: If the document states figures are in thousands, convert them to millions before returning. For example C$16,145 thousands = C$16.1m. Always return values in millions with an "m" suffix
+- CURRENCY: If the CIM uses CAD or any non-USD currency, prefix values with the correct symbol e.g. C$16.1m not $16.1m`
 
 export async function POST(req: NextRequest) {
   try {

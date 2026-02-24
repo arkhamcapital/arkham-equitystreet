@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useRef } from "react"
 import { AppHeader } from "@/components/cim/header"
 import { UploadZone } from "@/components/cim/upload-zone"
 import { DealHeader } from "@/components/cim/deal-header"
 import { AnalysisTabs } from "@/components/cim/analysis-tabs"
+import { ReportForPdf } from "@/components/cim/report-for-pdf"
 import { DecisionPanel } from "@/components/cim/decision-panel"
 import { SidebarInfo } from "@/components/cim/sidebar-info"
 import { RecentDeals } from "@/components/cim/recent-deals"
@@ -148,8 +149,61 @@ function AnalysisView({
   data: AnalysisResult
   onReset: () => void
 }) {
+  const pdfRef = useRef<HTMLDivElement>(null)
+  const [exporting, setExporting] = useState(false)
+
+  const handleExportPdf = useCallback(async () => {
+    if (!pdfRef.current || exporting) return
+    setExporting(true)
+    try {
+      const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
+        import("html2canvas"),
+        import("jspdf"),
+      ])
+      const el = pdfRef.current
+      const canvas = await html2canvas(el, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#ffffff",
+      })
+      const imgW = 210 // A4 width in mm
+      const imgH = (canvas.height * imgW) / canvas.width
+      const pdf = new jsPDF("p", "mm", "a4")
+      const pageH = 297
+      let heightLeft = imgH
+      let position = 0
+      let page = 0
+      const imgData = canvas.toDataURL("image/png")
+      pdf.addImage(imgData, "PNG", 0, position, imgW, imgH)
+      heightLeft -= pageH
+      while (heightLeft > 0) {
+        position = heightLeft - imgH
+        pdf.addPage()
+        pdf.addImage(imgData, "PNG", 0, position, imgW, imgH)
+        heightLeft -= pageH
+        page++
+      }
+      const filename = `${data.companyName.replace(/\s+/g, "-")}-analysis.pdf`
+      pdf.save(filename)
+    } catch (err) {
+      console.error("PDF export failed:", err)
+    } finally {
+      setExporting(false)
+    }
+  }, [data.companyName, exporting])
+
   return (
     <main className="flex flex-1 flex-col">
+      {/* Hidden container for PDF capture - off-screen but in DOM */}
+      <div
+        aria-hidden
+        className="fixed left-[-9999px] top-0 z-[-1]"
+        ref={pdfRef}
+      >
+        <ReportForPdf data={data} />
+      </div>
+
       <div className="flex items-center justify-between border-b border-border px-8 py-3">
         <button
           onClick={onReset}
@@ -158,11 +212,13 @@ function AnalysisView({
           {"\u2190"} NEW ANALYSIS
         </button>
         <div className="flex items-center gap-3">
-          <button className="border border-border bg-card px-3 py-1.5 text-[10px] tracking-[1.5px] text-[#555] transition-colors hover:bg-accent hover:text-foreground rounded-sm">
-            SHARE
-          </button>
-          <button className="border border-border bg-card px-3 py-1.5 text-[10px] tracking-[1.5px] text-[#555] transition-colors hover:bg-accent hover:text-foreground rounded-sm">
-            EXPORT PDF
+          <button
+            type="button"
+            onClick={handleExportPdf}
+            disabled={exporting}
+            className="border border-border bg-card px-3 py-1.5 text-[10px] tracking-[1.5px] text-[#555] transition-colors hover:bg-accent hover:text-foreground rounded-sm disabled:opacity-50"
+          >
+            {exporting ? "EXPORTING…" : "EXPORT PDF"}
           </button>
         </div>
       </div>

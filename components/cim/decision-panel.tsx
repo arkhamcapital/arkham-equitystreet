@@ -24,7 +24,7 @@ export function DecisionPanel() {
           <h3 className="text-[13px] font-sans font-bold text-foreground">
             Decision Recorded
           </h3>
-          <p className="text-[12px] font-sans italic leading-5 text-[#666]">
+          <p className="text-[12px] font-sans italic leading-5 text-foreground">
             {decision === "pursue"
               ? "Deal moved to pipeline. IC deck preparation initiated."
               : decision === "pass"
@@ -38,7 +38,7 @@ export function DecisionPanel() {
             setDecision(null)
             setNotes("")
           }}
-          className="text-[10px] tracking-[1.5px] text-[#444] hover:text-foreground transition-colors"
+          className="text-[10px] tracking-[1.5px] text-foreground hover:text-foreground/80 transition-colors"
         >
           REVISE DECISION
         </button>
@@ -57,7 +57,7 @@ export function DecisionPanel() {
       </div>
 
       {/* Fiduciary notice */}
-      <p className="text-[11px] font-sans italic leading-5 text-[#444]">
+      <p className="text-[11px] font-sans italic leading-5 text-foreground">
         This decision involves LP capital and fiduciary responsibility.
         The AI has provided first-pass analysis. The go/no-go determination
         must remain a human judgment call.
@@ -97,7 +97,7 @@ export function DecisionPanel() {
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Document your reasoning for the IC..."
-          className="h-24 resize-none rounded-md border border-border bg-background px-3 py-2 text-[13px] font-sans leading-6 text-foreground placeholder:text-[#333] focus:border-primary focus:outline-none"
+          className="h-24 resize-none rounded-md border border-border bg-background px-3 py-2 text-[13px] font-sans leading-6 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none"
         />
       </div>
 
@@ -138,7 +138,7 @@ function DecisionButton({
         "flex flex-col items-center gap-1 rounded-md border p-3 transition-all",
         isSelected
           ? selectedBg
-          : "border-border text-[#444] hover:border-[#333] hover:text-[#666]"
+          : "border-border text-foreground hover:border-border/80 hover:text-foreground"
       )}
     >
       <span className="text-[10px] font-medium tracking-[1.5px]">{label}</span>
